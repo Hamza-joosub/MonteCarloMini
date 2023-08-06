@@ -89,7 +89,7 @@ public static void main(String[] args)
     	//all searches
     	int min=Integer.MAX_VALUE;
     	int local_min=Integer.MAX_VALUE;
-    	int finder =-1;
+    	int finder =-2;
 		int searchIndex1 = num_searches/4;
 		int searchIndex2 = num_searches/2;
 		int searchIndex3 = num_searches/2 + num_searches/4;
