@@ -28,7 +28,8 @@ class MonteCarloMinimization
 	
 public static void main(String[] args)  
 {
-
+	ForLoopThread thread = new ForLoopThread();
+	thread.start();
     	int rows, columns; //grid size
     	double xmin, xmax, ymin, ymax; //x and y terrain limits
     	TerrainArea terrain;  //object to store the heights and grid points visited by searches
