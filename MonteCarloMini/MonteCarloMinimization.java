@@ -10,6 +10,7 @@ import java.util.List;
  * developed by Arturo Gonzalez Escribano  (Universidad de Valladolid 2021/2022)
  */
 import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
 
 class MonteCarloMinimization
 {
@@ -88,10 +89,14 @@ public static void main(String[] args)
     	tick();
 		int min = Integer.MAX_VALUE;
 		int finder = -2;
+		ForkJoinPool fjp = ForkJoinPool.commonPool(); 
+		System.out.println(num_searches);
+		System.out.println(searches.length);
 		List<Integer> results = new ArrayList<>();
 		ForLoopThread thing = new ForLoopThread(num_searches, searches, results);
 		thing.compute();
-		System.out.print(results);
+		System.out.println(results.get(2));
+
 
 		tock();
     		//if(DEBUG) System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());

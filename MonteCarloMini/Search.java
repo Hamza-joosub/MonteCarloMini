@@ -75,5 +75,9 @@ public class Search extends Thread
 	public boolean isStopped() {
 		return stopped;
 	}
+	public TerrainArea getTerrainArea()
+	{
+		return terrain;
+	}
 
 }
