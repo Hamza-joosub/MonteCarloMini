@@ -95,7 +95,10 @@ public static void main(String[] args)
 		List<Integer> results = new ArrayList<>();
 		ForLoopThread thing = new ForLoopThread(num_searches, searches, results);
 		thing.compute();
-		System.out.println(results.get(2));
+		for(int i = 0;i<results.size()-1;i++)
+		{
+			System.out.println(results.get(i));
+		}
 
 
 		tock();
@@ -118,9 +121,9 @@ public static void main(String[] args)
 
 		/*  Total computation time */
 		//System.out.printf("Time: %d ms\n",endTime - startTime );
-		int tmp=terrain.getGrid_points_visited();
+		//int tmp=terrain.getGrid_points_visited();
 		//System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
-		tmp=terrain.getGrid_points_evaluated();
+		//tmp=terrain.getGrid_points_evaluated();
 		//System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 	
 		/* Results*/

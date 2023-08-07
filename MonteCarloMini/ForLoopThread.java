@@ -31,7 +31,7 @@ public class ForLoopThread extends RecursiveAction
         }
         else
         {
-            process(searches);
+            results.add(process(searches));
         }
     }
     private List<ForLoopThread> createSubtasks() 
@@ -45,13 +45,13 @@ public class ForLoopThread extends RecursiveAction
                 for(int i = 0;i<arr_size;i++)
                 {
                     searchPart1[i] = new Search(searches[i].getID(), searches[i].getPos_row(),searches[i].getPos_col() , searches[i].getTerrainArea());
-                    //System.out.println(searchPart1[i].getID());
+                    
                 }
 
                 for(int j=0;j<arr_size;j++)
                 {
                     searchPart2[j] = new Search(searches[j + arr_size].getID(), searches[j + arr_size].getPos_row(),searches[j + arr_size].getPos_col() , searches[j+arr_size].getTerrainArea());
-                    //System.out.println(searchPart1[i].getID());
+                    
                 }
                 //System.out.println("first: " + searchPart1[0].getID() + "Last: " + searchPart1[arr_size-1].getID());
                 //System.out.println("first: " + searchPart2[0].getID() + "Last: " + searchPart2[arr_size-1].getID());
@@ -66,24 +66,23 @@ public class ForLoopThread extends RecursiveAction
             return subtasks;
     }
 
-
     public int process(Search[] searchesI)
     {
-        int finder = -2;
+        int min = -2;
+        
         for(int i=0;i<searchesI.length;i++) 
+        
 		{
     		local_min=searchesI[i].find_valleys();
     		if((!searchesI[i].isStopped())&&(local_min<min)) 
 			{ 
     			min=local_min;
-    			finder=i; 
-			}  
-    	}
-        results.add(finder);
+    			return searchesI[i].getID(); 
+			}           
+    	}   
         return finder;
-        
-        
     }
+
     public int getFinder()
     {
         return finder;
