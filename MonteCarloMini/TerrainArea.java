@@ -54,7 +54,8 @@ public class TerrainArea {
 		double x_coord = xmin + ( (xmax - xmin) / rows ) * x;
 		double y_coord = ymin + ( (ymax - ymin) / columns ) * y;
 		/* Compute function value */
-		double value = (x_coord-2)*(x_coord-2) + 15;
+		double value = -2 * Math.sin(x_coord) * Math.cos(y_coord/2.0) + Math.log( Math.abs(y_coord - Math.PI*2) );
+		
 		
 		// **** NB  Rosenbrock function below can be used instead for validation ****
 		/*double tmp = y_coord-Math.pow(x_coord,2);

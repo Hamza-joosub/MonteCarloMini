@@ -57,7 +57,7 @@ public class ForLoopThread extends RecursiveAction
                 //System.out.println("first: " + searchPart2[0].getID() + "Last: " + searchPart2[arr_size-1].getID());
                 //System.out.println("break");
                 subtasks.add(new ForLoopThread(arr_size, searchPart1,results ));
-                subtasks.add(new ForLoopThread(arr_size, searchPart2, results));
+                subtasks.add(new ForLoopThread(arr_size, searchPart2,results));
             }   
         else
             {
@@ -68,7 +68,9 @@ public class ForLoopThread extends RecursiveAction
 
     public int process(Search[] searchesI)
     {
-        int min = -2;
+        int min=Integer.MAX_VALUE;
+    	int local_min=Integer.MAX_VALUE;
+    	int finder =-1;
         
         for(int i=0;i<searchesI.length;i++) 
         
@@ -77,10 +79,10 @@ public class ForLoopThread extends RecursiveAction
     		if((!searchesI[i].isStopped())&&(local_min<min)) 
 			{ 
     			min=local_min;
-    			return searchesI[i].getID(); 
+    			finder=i; //keep track of who found it
 			}           
     	}   
-        return finder;
+        return min;
     }
 
     public int getFinder()

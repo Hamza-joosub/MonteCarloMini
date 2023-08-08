@@ -69,7 +69,7 @@ public static void main(String[] args)
 		xmax = 100;
 		ymin = 0;
 		ymax = 100;
-		searches_density = 1;
+		searches_density = 1000;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
@@ -88,8 +88,6 @@ public static void main(String[] args)
     	//start timer
     	tick();
 		int min = Integer.MAX_VALUE;
-		int finder = -2;
-		ForkJoinPool fjp = ForkJoinPool.commonPool(); 
 		System.out.println(num_searches);
 		System.out.println(searches.length);
 		List<Integer> results = new ArrayList<>();
@@ -97,8 +95,16 @@ public static void main(String[] args)
 		thing.compute();
 		for(int i = 0;i<results.size()-1;i++)
 		{
-			System.out.println(results.get(i));
+			if(results.get(i)< min)
+			{
+				min = results.get(i);
+			}
+			else
+			{
+				continue;
+			}
 		}
+		System.out.println(min);
 
 
 		tock();
@@ -120,7 +126,7 @@ public static void main(String[] args)
 		//System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
 
 		/*  Total computation time */
-		//System.out.printf("Time: %d ms\n",endTime - startTime );
+		System.out.printf("Time: %d ms\n",endTime - startTime );
 		//int tmp=terrain.getGrid_points_visited();
 		//System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 		//tmp=terrain.getGrid_points_evaluated();
