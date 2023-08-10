@@ -63,14 +63,14 @@ public static void main(String[] args)
 
 
 
-		rows = 10;
-		columns = 10;
-		xmin = -5;
-		xmax = 5;
-		ymin = -5;
-		ymax = 5;
+		rows = 2100;
+		columns = 2100;
+		xmin = 0;
+		xmax = 100;
+		ymin = 0;
+		ymax = 100;
 		int finder = 0;
-		searches_density = 0.5;
+		searches_density = 0.7;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
