@@ -111,7 +111,7 @@ public static void main(String[] args)
 
 
 		tock();
-    		//if(DEBUG) System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());
+    		if(DEBUG) System.out.println("Search "+searches[finder].getID()+" finished at  "+min + " in " +searches[finder].getSteps());
     	
    		//end timer
    		
