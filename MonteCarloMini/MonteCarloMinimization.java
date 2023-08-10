@@ -63,13 +63,14 @@ public static void main(String[] args)
 
 
 
-		rows = 100;
-		columns = 100;
+		rows = 1600;
+		columns = 1600;
 		xmin = 0;
 		xmax = 100;
 		ymin = 0;
 		ymax = 100;
-		searches_density = 1000;
+		int finder = 0;
+		searches_density = 0.2;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
@@ -84,27 +85,29 @@ public static void main(String[] args)
     		System.out.printf("Number searches: %d\n", num_searches);
     		//terrain.print_heights();
     	}
-		
-    	//start timer
-    	tick();
 		int min = Integer.MAX_VALUE;
 		System.out.println(num_searches);
 		System.out.println(searches.length);
-		List<Integer> results = new ArrayList<>();
-		ForLoopThread thing = new ForLoopThread(num_searches, searches, results);
-		thing.compute();
-		for(int i = 0;i<results.size()-1;i++)
+		List<int[]> results = new ArrayList<>();
+    	//start timer
+    	tick();
+		ForkJoinRecursive thing = new ForkJoinRecursive(num_searches, searches, results); ////This line is creating an object that will be used to perform a parallel computation usingthe Fork-Join framework.
+		ForkJoinPool fjp1 = new ForkJoinPool();// The `ForkJoinPool` is responsible for distributing tasks to worker threads and coordinating their execution.
+		fjp1.invoke(thing);
+		
+		// The code is iterating over the `results` list, which contains arrays of integers. For each array
+		// in the list, it checks if the first element (`results.get(i)[0]`) is less than the current minimum
+		// value (`min`). If it is, the minimum value is updated to the new value and the variable `finder`
+		// is set to the second element of the array (`results.get(i)[1]`). Essentially, this loop is finding
+		// the minimum value in the `results` list and keeping track of the index of that minimum value.
+		for (int i = 0;i<results.size()-1;i++)
 		{
-			if(results.get(i)< min)
+			if(results.get(i)[0] < min)
 			{
-				min = results.get(i);
-			}
-			else
-			{
-				continue;
+				min = results.get(i)[0];
+				finder = results.get(i)[1];
 			}
 		}
-		System.out.println(min);
 
 
 		tock();
@@ -120,20 +123,20 @@ public static void main(String[] args)
     		terrain.print_visited();
     	}
     	
-		//System.out.printf("Run parameters\n");
-		//System.out.printf("\t Rows: %d, Columns: %d\n", rows, columns);
-		//System.out.printf("\t x: [%f, %f], y: [%f, %f]\n", xmin, xmax, ymin, ymax );
-		//System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
+		System.out.printf("Run parameters\n");
+		System.out.printf("\t Rows: %d, Columns: %d\n", rows, columns);
+		System.out.printf("\t x: [%f, %f], y: [%f, %f]\n", xmin, xmax, ymin, ymax );
+		System.out.printf("\t Search density: %f (%d searches)\n", searches_density,num_searches );
 
 		/*  Total computation time */
 		System.out.printf("Time: %d ms\n",endTime - startTime );
-		//int tmp=terrain.getGrid_points_visited();
-		//System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
-		//tmp=terrain.getGrid_points_evaluated();
-		//System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
+		int tmp=terrain.getGrid_points_visited();
+		System.out.printf("Grid points visited: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
+		tmp=terrain.getGrid_points_evaluated();
+		System.out.printf("Grid points evaluated: %d  (%2.0f%s)\n",tmp,(tmp/(rows*columns*1.0))*100.0, "%");
 	
 		/* Results*/
-		//System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", min, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[finder].getPos_col()) );
+		System.out.printf("Global minimum: %d at x=%.1f y=%.1f\n\n", min, terrain.getXcoord(searches[finder].getPos_row()), terrain.getYcoord(searches[finder].getPos_col()) );
 				
     	
     }
