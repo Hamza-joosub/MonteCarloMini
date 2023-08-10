@@ -17,7 +17,7 @@ public class ForkJoinRecursive extends RecursiveAction
     int numOfSearches;
     Search[] searches, searchPart1, searchPart2;
     List<int[]> results;//holds all contenders of the minimum
-    final int THRESHOLD = 150000; //threshold on whether to split array 
+    final int THRESHOLD = 100; //threshold on whether to split array 
 
     public ForkJoinRecursive(int numOfSearches, Search[] searches, List<int[]> results)
     {
@@ -68,6 +68,7 @@ public class ForkJoinRecursive extends RecursiveAction
      */
     public int[] process(Search[] searchesI)
     {
+        
         int min=Integer.MAX_VALUE;
     	int local_min=Integer.MAX_VALUE;
     	int finder;
@@ -75,8 +76,10 @@ public class ForkJoinRecursive extends RecursiveAction
         for(int i=0;i<searchesI.length;i++) 
 		{
     		local_min=searchesI[i].find_valleys();
+
     		if((!searchesI[i].isStopped())&&(local_min<min)) 
 			{ 
+                
     			min=local_min;
     			finder=i; //keep track of who found it
 			}   
