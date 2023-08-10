@@ -63,14 +63,14 @@ public static void main(String[] args)
 
 
 
-		rows = 1600;
-		columns = 1600;
-		xmin = 0;
-		xmax = 100;
-		ymin = 0;
-		ymax = 100;
+		rows = 10;
+		columns = 10;
+		xmin = -5;
+		xmax = 5;
+		ymin = -5;
+		ymax = 5;
 		int finder = 0;
-		searches_density = 0.2;
+		searches_density = 0.5;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
@@ -86,32 +86,31 @@ public static void main(String[] args)
     		//terrain.print_heights();
     	}
 		int min = Integer.MAX_VALUE;
-		System.out.println(num_searches);
-		System.out.println(searches.length);
 		List<int[]> results = new ArrayList<>();
     	//start timer
     	tick();
 		ForkJoinRecursive thing = new ForkJoinRecursive(num_searches, searches, results); ////This line is creating an object that will be used to perform a parallel computation usingthe Fork-Join framework.
 		ForkJoinPool fjp1 = new ForkJoinPool();// The `ForkJoinPool` is responsible for distributing tasks to worker threads and coordinating their execution.
 		fjp1.invoke(thing);
-		
-		// The code is iterating over the `results` list, which contains arrays of integers. For each array
-		// in the list, it checks if the first element (`results.get(i)[0]`) is less than the current minimum
-		// value (`min`). If it is, the minimum value is updated to the new value and the variable `finder`
-		// is set to the second element of the array (`results.get(i)[1]`). Essentially, this loop is finding
-		// the minimum value in the `results` list and keeping track of the index of that minimum value.
-		for (int i = 0;i<results.size()-1;i++)
+		// This code is iterating over the `results` list, which contains arrays of integers. It is comparing
+		// the first element of each array (`results.get(i)[0]`) with the current minimum value (`min`). If
+		// the first element is smaller than the current minimum, it updates the minimum value and assigns
+		// the second element of the array (`results.get(i)[1]`) to the variable `finder`. Essentially, this
+		// loop is finding the minimum value in the `results` list and keeping track of the index of that
+		// minimum value.
+		for (int i = 0;i<results.size();i++)
 		{
 			if(results.get(i)[0] < min)
-			{
+			{		
 				min = results.get(i)[0];
 				finder = results.get(i)[1];
+				
 			}
 		}
 
 
 		tock();
-    		if(DEBUG) System.out.println("Search "+searches[finder].getID()+" finished at  "+min + " in " +searches[finder].getSteps());
+    		if(DEBUG) System.out.println("Search "+searches[0].getID()+" finished at  "+min + " in " +searches[0].getSteps());
     	
    		//end timer
    		
