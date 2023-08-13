@@ -39,7 +39,7 @@ public static void main(String[] args)
      	int num_searches;		// Number of searches
     	Search [] searches;		// Array of searches
     	Random rand = new Random();  //the random number generator
-    	/* 
+    	
     	if (args.length!=7) {  
     		System.out.println("Incorrect number of command line arguments provided.");   	
     		System.exit(0);
@@ -59,18 +59,8 @@ public static void main(String[] args)
     		System.out.printf("Arguments, searches_density: %f\n", searches_density );
     		System.out.printf("\n");
     	}
-    	*/
-
-
-
-		rows = 4500;
-		columns = 4500;
-		xmin = 0;
-		xmax = 100;
-		ymin = 0;
-		ymax = 100;
+    	
 		int finder = 0;
-		searches_density = 0.2;
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
