@@ -17,7 +17,7 @@ public class ForkJoinRecursive extends RecursiveAction
     int numOfSearches;
     Search[] searches, searchPart1, searchPart2;
     List<int[]> results;//holds all contenders of the minimum
-    final int THRESHOLD = 100; //threshold on whether to split array 
+    final int THRESHOLD = 50; //threshold on whether to split array 
 
     public ForkJoinRecursive(int numOfSearches, Search[] searches, List<int[]> results)
     {
@@ -31,6 +31,9 @@ public class ForkJoinRecursive extends RecursiveAction
      * creates subtasks and invokes them using ForkJoinTask, otherwise it processes the searches and
      * adds the results to a list.
      */
+    // The `compute()` method is the main method of the `ForkJoinRecursive` class. It is responsible
+    // for dividing the array of `Search` objects into smaller subtasks and processing them using
+    // multiple threads.
     public void compute()
     {
         if(numOfSearches>THRESHOLD)
